@@ -1,7 +1,6 @@
-package com.bravedroid.permetta.permission
+package com.bravedroid.permetta.base
 
 import android.util.Log
-
 
 object LogHelper {
     private const val TAG = "LIFE_CYCLE"

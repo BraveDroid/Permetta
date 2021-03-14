@@ -1,4 +1,5 @@
 package com.bravedroid.permetta.base
+
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,20 +10,63 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.bravedroid.permetta.R
-import com.bravedroid.permetta.permission.LogHelper
-import com.bravedroid.permetta.permission.LogHelper.logLifeCycle
-import com.bravedroid.permetta.permission.PermissionActivity
-
+import com.bravedroid.permetta.base.LogHelper.logLifeCycle
+import com.bravedroid.permetta.permission.oldapi.PermissionActivity
 
 open class BaseFragment : Fragment(), LifecycleObserver {
 
+    /**
+
+    private class PermissionActivityObserver(private var context: Context?) : LifecycleObserver {
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    fun activityHasBeenCreated() {
+    LogHelper.logInformation("activityHasBeenCreated from observer")
+    (context as? PermissionActivity)?.lifecycle?.removeObserver(this) ?: return
+    context = null
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun activityHasBeenStarted() {
+    LogHelper.logInformation("activityHasBeenStarted")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    fun activityHasBeenResumed() {
+    LogHelper.logInformation("activityHasBeenResumed")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    fun activityHasBeenPaused() {
+    LogHelper.logInformation("activityHasBeenPaused")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    fun activityHasBeenStopped() {
+    LogHelper.logInformation("activityHasBeenStopped")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun activityHasBeenDestroyed() {
+    LogHelper.logInformation("activityHasBeenDestroyed")
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_ANY)
+    fun activityHasBeenANY() {
+    LogHelper.logInformation("activityHasBeenAny")
+    }
+    }
+
+    override fun onAttach(context: Context) {
+    super.onAttach(context)
+    (context as AppCompatActivity).lifecycle.addObserver(PermissionActivityObserver(context))
+    }
+     **/
     override fun onAttach(context: Context) {
         super.onAttach(context)
         logLifeCycle("onAttach")
         val hashcode = requireActivity().hashCode().toString()
         LogHelper.logInformation("#onAttach the hashcode of my activity is $hashcode")
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +76,9 @@ open class BaseFragment : Fragment(), LifecycleObserver {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         logLifeCycle("onCreateView")
         val hashcode = requireActivity().hashCode().toString()
